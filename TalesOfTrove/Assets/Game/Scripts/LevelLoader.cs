@@ -41,7 +41,7 @@ public class LevelLoader : MonoBehaviour
         if (alpha < 1)
         {
             image.gameObject.SetActive(true);
-            alpha += .0005f;
+            alpha += .05f;
             image.canvasRenderer.SetAlpha(alpha);
         }
         else if (alpha >= 1)
@@ -57,7 +57,7 @@ public class LevelLoader : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if (alpha > 0)
         {
-            alpha -= .0004f;
+            alpha -= .04f;
             yield return new WaitForSeconds(.75f);
             image.canvasRenderer.SetAlpha(alpha);
         }
