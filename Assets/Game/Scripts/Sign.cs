@@ -25,7 +25,7 @@ public class Sign : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && playerInRange)
+        if (Input.GetKeyDown(KeyCode.F) && playerInRange)
         {
             if (dialogBox.activeInHierarchy)
             {

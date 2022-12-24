@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1132863214902152579}
   - component: {fileID: 1132863214902152576}
-  - component: {fileID: 1132863214902152577}
+  - component: {fileID: -4408890000410294100}
   m_Layer: 0
   m_Name: InteractButton
   m_TagString: Untagged
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 5450837733094888678, guid: 78d2858a2d8827644a4e1d230e6f8bbd, type: 3}
+  m_SortingOrder: -2
+  m_Sprite: {fileID: -4657369681490478202, guid: 78d2858a2d8827644a4e1d230e6f8bbd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,23 +85,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1132863214902152577
-Animator:
-  serializedVersion: 4
+--- !u!114 &-4408890000410294100
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132863214902152582}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d200fa30a241dd040be820d14492819b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea29877f26475c4f98a08db8693971d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
