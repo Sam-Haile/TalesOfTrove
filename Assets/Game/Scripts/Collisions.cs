@@ -8,13 +8,22 @@ public class Collisions : MonoBehaviour
     private AudioManager_PrototypeHero audioManager;
     public PrototypeHero player;
     public SpriteRenderer keySprite;
-    public Enemy enemy;
 
+    public List<GameObject> collectedGems;
     public int scoreAmount = 0;
     public float damageAmount;
     public bool opened = false;
     private bool chestInRange;
     private Enemy currentEnemy;
+
+    IEnumerator Invincible(float waitTime, GameObject enemy)
+    {
+        Collider2D enemyCollider = enemy.GetComponent<Collider2D>();
+        enemyCollider.enabled = false;
+        yield return new WaitForSeconds(waitTime);
+        enemyCollider.enabled = true;
+    }
+
     private void Start()
     {
         audioManager = AudioManager_PrototypeHero.instance;
@@ -39,10 +48,9 @@ public class Collisions : MonoBehaviour
 
         if (currentEnemy != null)
         {
-            if (currentEnemy.IsDead)
+            if (currentEnemy.isDead)
             {
                 animator.SetTrigger("IsDead");
-
             }
         }
     }
@@ -56,20 +64,56 @@ public class Collisions : MonoBehaviour
         if (collision.tag == "Player" && this.tag == "Collectible")
         {
             Score.Instance.AddPoints(scoreAmount);
+            audioManager.PlaySound("coinPickup");
             Destroy(gameObject);
         }
+        if (collectedGems != null)
+        {
+
+            if (collision.tag == "Player" && this.tag == "blueGem")
+            {
+                audioManager.PlaySound("gemPickup");
+                this.gameObject.SetActive(false);
+                collectedGems[0].SetActive(true);
+            }
+            else if (collision.tag == "Player" && this.tag == "greenGem")
+            {
+                this.gameObject.SetActive(false);
+                collectedGems[1].SetActive(true);
+            }
+            else if (collision.tag == "Player" && this.tag == "redGem")
+            {
+                this.gameObject.SetActive(false);
+                collectedGems[2].SetActive(true);
+            }
+            else if (collision.tag == "Player" && this.tag == "whiteGem")
+            {
+                this.gameObject.SetActive(false);
+                collectedGems[3].SetActive(true);
+            }
+
+        }
+        // Player x Enemy Collisions
         if (collision.gameObject.CompareTag("Player") && this.tag == "enemy")
         {
             player.TakeDamage(damageAmount);
+            // Makes player invunerable for a certain amount of time
+            StartCoroutine(Invincible(1f, this.gameObject));
         }
+        if (collision.tag == "Ground" && this.tag == "enemy")
+        {
+            Debug.Log("vslkfdvjhb1");
+        }
+        // Spikes and other enviornmental traps
         if (collision.gameObject.CompareTag("Player") && this.tag == "death")
         {
             player.TakeDamage(damageAmount);
         }
+        // Player damaging enemies
         if (collision.gameObject.CompareTag("hitbox") && this.tag == "enemy")
         {
             currentEnemy = this.gameObject.GetComponent<Enemy>();
-            audioManager.PlaySound("Hurt");
+            audioManager.PlaySound("Dodge");
             currentEnemy.TakeDamage(10);
         }
 

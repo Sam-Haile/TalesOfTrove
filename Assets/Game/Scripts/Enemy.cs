@@ -10,26 +10,21 @@ public class Enemy : MonoBehaviour
     public int currentHealth;
     public PrototypeHero hitBoxList;
     [HideInInspector]
-    public bool IsDead;
+    public bool isDead;
+    [HideInInspector]
+    public bool isHit = false;
     private Collider2D enemyCollider;
+
     void Start()
     {
         currentHealth = maxHealth;
     }
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
- 
-    }
-
-    private void Update()
-    {
-    }
     public void TakeDamage(int damage)
     {
+        isHit = true;
         currentHealth -= damage;
-
+        StartCoroutine(WaitSeconds(.5f));
         if (currentHealth < 0)
         {
             currentHealth = 0;
@@ -39,24 +34,30 @@ public class Enemy : MonoBehaviour
         {
             Die();
         }
+
     }
 
     void Die()
     {
         // Trigger aniamtion
-        IsDead = true;
+        isDead = true;
 
         // Turn off collider
         enemyCollider = this.gameObject.GetComponent<Collider2D>();
         enemyCollider.enabled = false; 
-        StartCoroutine(WaitTime(1f));
+        StartCoroutine(DestroyObject(1f));
         this.enabled = false;
     }
 
-    IEnumerator WaitTime(float waitTime)
+    IEnumerator DestroyObject(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         this.gameObject.SetActive(false);
+    }
 
+    IEnumerator WaitSeconds(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        isHit = false;
     }
 }

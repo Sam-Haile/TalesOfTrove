@@ -65,6 +65,7 @@
     <Compile Include="Assets\Game\Scripts\Sensor.cs" />
     <Compile Include="Assets\Game\Scripts\HealthHeartBar.cs" />
     <Compile Include="Assets\Game\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Game\Scripts\pauseScript.cs" />
     <Compile Include="Assets\Game\Scripts\Collectible.cs" />
     <Compile Include="Assets\Prototype Hero - Pixel Art\Demo\Dust_DestroyEvent.cs" />
     <Compile Include="Assets\Prototype Hero - Pixel Art\Demo\PrototypeHeroAnimEvents.cs" />
@@ -73,8 +74,10 @@
     <Compile Include="Assets\Game\Scripts\StartGame.cs" />
     <Compile Include="Assets\Game\Scripts\Score.cs" />
     <Compile Include="Assets\Game\Scripts\Move.cs" />
+    <Compile Include="Assets\Game\Sprites\Enemies\bat\Bat.cs" />
     <Compile Include="Assets\Game\Scripts\PrototypeHero.cs" />
     <Compile Include="Assets\Game\Scripts\Sign.cs" />
+    <Compile Include="Assets\Game\Sprites\Enemies\bat\ChaseController.cs" />
     <Compile Include="Assets\Prototype Hero - Pixel Art\Demo\AudioManager_PrototypeHero.cs" />
   </ItemGroup>
   <ItemGroup>

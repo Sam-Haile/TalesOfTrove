@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting.Antlr3.Runtime;
 
 public class LevelLoader : MonoBehaviour
 {
@@ -10,16 +11,19 @@ public class LevelLoader : MonoBehaviour
     [HideInInspector]
     public float alpha = 0;
 
-    public Image image;
     public Animator transition;
+    public Image image;
     public float transitionTime = 1;
     private bool loadLevel;
-
     private void Start()
     {
-        image.canvasRenderer.SetAlpha(0);
+        if (image != null)
+        {
+            image.canvasRenderer.SetAlpha(0);
+            image.gameObject.SetActive(false);
+        }
+
         loadLevel = false;
-        image.gameObject.SetActive(false);
     }
 
     // When the start button is clicked, begin coroutine
@@ -31,9 +35,10 @@ public class LevelLoader : MonoBehaviour
         }
     }
 
+
     public void LoadNextLevel()
     {
-        loadLevel= true;
+        loadLevel = true;
     }
 
     public IEnumerator FadeToBlack() //Alpha gradually goes to 0

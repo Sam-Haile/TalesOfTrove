@@ -10,6 +10,12 @@ TagManager:
   - death
   - Chest
   - hitbox
+  - blueGem
+  - whiteGem
+  - redGem
+  - greenGem
+  - Ground
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -17,7 +23,7 @@ TagManager:
   - Player
   - Water
   - UI
-  - 
+  - Platforms
   - 
   - 
   - 
