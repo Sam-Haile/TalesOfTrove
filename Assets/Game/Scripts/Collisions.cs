@@ -17,19 +17,23 @@ public class Collisions : MonoBehaviour
     public bool opened = false;
     private bool chestInRange;
     private Enemy currentEnemy;
+    private CircleCollider2D enemyCollider;
 
 
 
     IEnumerator Invincible(float waitTime, GameObject enemy)
     {
-        Collider2D enemyCollider = enemy.GetComponent<Collider2D>();
         enemyCollider.enabled = false;
         yield return new WaitForSeconds(waitTime);
+    }
+    IEnumerator TurnOn()
+    {
+        yield return new WaitForSeconds(1);
         enemyCollider.enabled = true;
     }
-
     private void Start()
     {
+        enemyCollider = this.gameObject.GetComponent<CircleCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         audioManager = AudioManager_PrototypeHero.instance;
         animator = GetComponent<Animator>();
@@ -104,8 +108,9 @@ public class Collisions : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && this.tag == "enemy")
         {
             player.TakeDamage(damageAmount);
+            Debug.Log("playerHit");
             // Makes player invunerable for a certain amount of time
-            StartCoroutine(Invincible(1f, this.gameObject));
+            StartCoroutine(Invincible(5f, this.gameObject));
         }
         if (collision.tag == "Ground" && this.tag == "enemy")
         {
@@ -144,12 +149,17 @@ public class Collisions : MonoBehaviour
 
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         chestInRange = false;
         if (keySprite != null)
         {
             keySprite.enabled = false;
+        }
+        if (collision.gameObject.CompareTag("Player") && this.tag == "enemy")
+        {
+            // Makes player invunerable for a certain amount of time
+            StartCoroutine(Invincible(1f, this.gameObject));
         }
     }
 }

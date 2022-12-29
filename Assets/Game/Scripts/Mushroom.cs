@@ -8,6 +8,7 @@ public class Mushroom : MonoBehaviour
     public bool chase = false;
     public Transform startingPoint;
     private GameObject player;
+    public PrototypeHero playerHealth;
     private float distance;
     private Animator m_animator;
     private MushroomState mushroom = MushroomState.Idle;
@@ -45,7 +46,10 @@ public class Mushroom : MonoBehaviour
             Chase();
         else
             ReturnToStartingPosition();
-
+        if (playerHealth.health <= 0)
+        {
+            this.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        }
         Flip();
     }
 

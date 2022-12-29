@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Game\Scripts\EnemyMovement.cs" />
+    <Compile Include="Assets\Game\Scripts\Mushroom.cs" />
     <Compile Include="Assets\Prototype Hero - Pixel Art\ColorSwap\ColorSwap_Prototype.cs" />
     <Compile Include="Assets\Prototype Hero - Pixel Art\Demo\Sensor_Prototype.cs" />
     <Compile Include="Assets\Prototype Hero - Pixel Art\Demo\GrabableLedge.cs" />
@@ -78,10 +79,9 @@
     <Compile Include="Assets\Game\Sprites\Enemies\bat\Bat.cs" />
     <Compile Include="Assets\Game\Scripts\PrototypeHero.cs" />
     <Compile Include="Assets\Game\Sprites\Enemies\bat\chaseControl.cs" />
+    <Compile Include="Assets\Game\Sprites\Enemies\mushroom\EnemyManger.cs" />
     <Compile Include="Assets\Game\Scripts\Sign.cs" />
     <Compile Include="Assets\Prototype Hero - Pixel Art\Demo\AudioManager_PrototypeHero.cs" />
-    <Compile Include="Assets\Game\Scripts\Mushroom.cs" />
-    <Compile Include="Assets\Game\Sprites\Enemies\mushroom\EnemyManger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
