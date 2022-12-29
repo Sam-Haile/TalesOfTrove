@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bat : MonoBehaviour
+public class Mushroom : MonoBehaviour
 {
     public float speed;
     public bool chase = false;
     public Transform startingPoint;
     private GameObject player;
     private float distance;
-    private Animator b_animator;
-    private BatState bat = BatState.Idle;
+    private Animator m_animator;
+    private MushroomState mushroom = MushroomState.Idle;
     private Enemy enemy;
-    private Rigidbody2D b_rigidbody;
+    private Rigidbody2D m_rigidbody;
     private BoxCollider2D boxCollider;
-    public enum BatState
+    public enum MushroomState
     {
         Idle,
         Chase,
@@ -26,17 +26,17 @@ public class Bat : MonoBehaviour
 
     void Start()
     {
-        b_rigidbody = GetComponent<Rigidbody2D>();
+        m_rigidbody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         enemy = GetComponent<Enemy>();
         player = GameObject.FindGameObjectWithTag("Player");
-        b_animator = GetComponent<Animator>();
+        m_animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        BatStates();
-        BatAnims();
+        MushroomStates();
+        MushroomAnims();
         // Calculate distance between player and enemy
         distance = Vector2.Distance(this.transform.position, player.transform.position);
         if (player == null)
@@ -51,14 +51,18 @@ public class Bat : MonoBehaviour
 
     private void Chase()
     {
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x + .5f, player.transform.position.y + .5f), speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x, transform.position.y), speed * Time.deltaTime);
+        if (distance < .5f)
+        {
+            //transform.position = new Vector2(// stop moving);
+        }
     }
 
     private void ReturnToStartingPosition()
     {
         if (enemy.currentHealth > 0)
         {
-            transform.position = Vector2.MoveTowards(transform.position, startingPoint.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(startingPoint.position.x, transform.position.y), speed * Time.deltaTime);
         }
     }
 
@@ -70,109 +74,109 @@ public class Bat : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
-    private void BatStates()
+    private void MushroomStates()
     {
-        switch (bat)
+        switch (mushroom)
         {
-            case BatState.Idle:
+            case MushroomState.Idle:
                 if (chase)
                 {
-                    bat = BatState.Chase;
+                    mushroom = MushroomState.Chase;
                 }
                 else if (enemy.currentHealth <= 0)
                 {
-                    bat = BatState.Die;
+                    mushroom = MushroomState.Die;
                 }
                 else if (enemy.isHit == true)
                 {
-                    bat = BatState.Hurt;
+                    mushroom = MushroomState.Hurt;
                 }
                 else if (distance < 1.5f)
                 {
-                    bat = BatState.Attack;
+                    mushroom = MushroomState.Attack;
                 }
                 break;
-            case BatState.Chase:
+            case MushroomState.Chase:
                 if (distance < 1.5f)
                 {
-                    bat = BatState.Attack;
+                    mushroom = MushroomState.Attack;
                 }
                 else if (!chase)
                 {
-                    bat = BatState.Idle;
+                    mushroom = MushroomState.Idle;
                 }
                 else if (enemy.currentHealth <= 0)
                 {
-                    bat = BatState.Die;
+                    mushroom = MushroomState.Die;
                 }
                 else if (enemy.isHit == true)
                 {
-                    bat = BatState.Hurt;
+                    mushroom = MushroomState.Hurt;
                 }
                 break;
-            case BatState.Attack:
+            case MushroomState.Attack:
                 if (!chase)
                 {
-                    bat = BatState.Idle;
+                    mushroom = MushroomState.Idle;
                 }
                 else if (enemy.currentHealth <= 0)
                 {
-                    bat = BatState.Die;
+                    mushroom = MushroomState.Die;
                 }
                 else if (enemy.isHit == true)
                 {
-                    bat = BatState.Hurt;
+                    mushroom = MushroomState.Hurt;
                 }
                 else if (distance > 1.5f)
                 {
-                    bat = BatState.Chase;
+                    mushroom = MushroomState.Chase;
                 }
                 break;
-            case BatState.Hurt:
+            case MushroomState.Hurt:
                 if (enemy.currentHealth <= 0)
                 {
-                    bat = BatState.Die;
+                    mushroom = MushroomState.Die;
                 }
                 else if (distance < 1.5f)
                 {
-                    bat = BatState.Attack;
+                    mushroom = MushroomState.Attack;
                 }
                 else if (!chase && !enemy.isHit)
                 {
-                    bat = BatState.Idle;
+                    mushroom = MushroomState.Idle;
                 }
                 else if (chase && !enemy.isHit)
                 {
-                    bat = BatState.Chase;
+                    mushroom = MushroomState.Chase;
                 }
                 break;
-            case BatState.Die:
+            case MushroomState.Die:
                 boxCollider.enabled = true;
-                b_rigidbody.bodyType = RigidbodyType2D.Dynamic;
+                m_rigidbody.bodyType = RigidbodyType2D.Dynamic;
                 break;
         }
     }
-    private void BatAnims()
+    private void MushroomAnims()
     {
-        switch (bat)
+        switch (mushroom)
         {
-            case BatState.Idle:
-                b_animator.SetBool("attack", false);
-                b_animator.SetBool("idle", true);
+            case MushroomState.Idle:
+                m_animator.SetBool("attack", false);
+                m_animator.SetBool("idle", true);
                 break;
-            case BatState.Chase:
-                b_animator.SetBool("attack", false);
+            case MushroomState.Chase:
+                m_animator.SetBool("attack", false);
                 break;
-            case BatState.Attack:
-                b_animator.SetBool("attack", true);
-                b_animator.SetBool("idle", false);
+            case MushroomState.Attack:
+                m_animator.SetBool("attack", true);
+                m_animator.SetBool("idle", false);
                 break;
-            case BatState.Hurt:
-                b_animator.SetTrigger("isHit");
-                b_animator.SetBool("idle", false);
+            case MushroomState.Hurt:
+                m_animator.SetTrigger("isHit");
+                m_animator.SetBool("idle", false);
                 break;
-            case BatState.Die:
-                b_animator.SetTrigger("isDead");
+            case MushroomState.Die:
+                m_animator.SetTrigger("isDead");
                 break;
         }
     }

@@ -8,6 +8,8 @@ public class Collisions : MonoBehaviour
     private AudioManager_PrototypeHero audioManager;
     public PrototypeHero player;
     public SpriteRenderer keySprite;
+    private Rigidbody2D rb;
+    public int knockbackForce =50;
 
     public List<GameObject> collectedGems;
     public int scoreAmount = 0;
@@ -15,6 +17,8 @@ public class Collisions : MonoBehaviour
     public bool opened = false;
     private bool chestInRange;
     private Enemy currentEnemy;
+
+
 
     IEnumerator Invincible(float waitTime, GameObject enemy)
     {
@@ -26,6 +30,7 @@ public class Collisions : MonoBehaviour
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         audioManager = AudioManager_PrototypeHero.instance;
         animator = GetComponent<Animator>();
         if (keySprite != null)
@@ -53,7 +58,9 @@ public class Collisions : MonoBehaviour
                 animator.SetTrigger("IsDead");
             }
         }
+
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player" && this.tag == "Chest")
@@ -102,7 +109,6 @@ public class Collisions : MonoBehaviour
         }
         if (collision.tag == "Ground" && this.tag == "enemy")
         {
-            Debug.Log("vslkfdvjhb1");
         }
         // Spikes and other enviornmental traps
         if (collision.gameObject.CompareTag("Player") && this.tag == "death")
@@ -114,8 +120,27 @@ public class Collisions : MonoBehaviour
         {
             currentEnemy = this.gameObject.GetComponent<Enemy>();
             audioManager.PlaySound("Dodge");
+            // collision object here is the colliders
+            Debug.Log("Hit");
             currentEnemy.TakeDamage(10);
         }
+        /*
+        if (collision.gameObject.CompareTag("leftHitBox") && this.tag == "enemy")
+        {
+            currentEnemy = this.gameObject.GetComponent<Enemy>();
+            audioManager.PlaySound("Dodge");
+            // collision object here is the colliders
+            rb.AddForce(new Vector2(-20,0), ForceMode2D.Impulse);
+            currentEnemy.TakeDamage(10);
+        }
+        else if (collision.gameObject.CompareTag("rightHitBox") && this.tag == "enemy")
+        {
+            currentEnemy = this.gameObject.GetComponent<Enemy>();
+            audioManager.PlaySound("Dodge");
+            // collision object here is the colliders
+            rb.AddForce(new Vector2(20, 0), ForceMode2D.Impulse);
+            currentEnemy.TakeDamage(10);
+        }*/
 
     }
 

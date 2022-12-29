@@ -77,6 +77,7 @@ public class PrototypeHero : MonoBehaviour
     IEnumerator HitBox(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+
         foreach (GameObject hitBox in swordHitboxes)
         {
             hitBox.SetActive(false);

@@ -16,6 +16,8 @@ TagManager:
   - greenGem
   - Ground
   - Wall
+  - leftHitBox
+  - rightHitBox
   layers:
   - Default
   - TransparentFX
