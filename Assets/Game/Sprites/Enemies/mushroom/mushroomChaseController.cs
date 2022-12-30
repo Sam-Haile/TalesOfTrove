@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class chaseControl : MonoBehaviour
+public class mushroomChaseController : MonoBehaviour
 {
-    public Bat[] enemyArray;
+    public Mushroom[] enemyArray;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            foreach (Bat bat in enemyArray)
+            foreach (Mushroom bat in enemyArray)
             {
                 bat.chase = true;
             }
@@ -21,7 +21,7 @@ public class chaseControl : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            foreach (Bat bat in enemyArray)
+            foreach (Mushroom bat in enemyArray)
             {
                 bat.chase = false;
             }

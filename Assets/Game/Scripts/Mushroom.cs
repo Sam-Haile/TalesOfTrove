@@ -36,6 +36,7 @@ public class Mushroom : MonoBehaviour
 
     void Update()
     {
+
         MushroomStates();
         MushroomAnims();
         // Calculate distance between player and enemy
@@ -56,10 +57,6 @@ public class Mushroom : MonoBehaviour
     private void Chase()
     {
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x, transform.position.y), speed * Time.deltaTime);
-        if (distance < .5f)
-        {
-            //transform.position = new Vector2(// stop moving);
-        }
     }
 
     private void ReturnToStartingPosition()
@@ -95,17 +92,17 @@ public class Mushroom : MonoBehaviour
                 {
                     mushroom = MushroomState.Hurt;
                 }
-                else if (distance < 1.5f)
+                else if (distance < .5f)
                 {
                     mushroom = MushroomState.Attack;
                 }
                 break;
             case MushroomState.Chase:
-                if (distance < 1.5f)
+                if (distance < .5f)
                 {
                     mushroom = MushroomState.Attack;
                 }
-                else if (!chase)
+                else if (transform.position.x == startingPoint.position.x)
                 {
                     mushroom = MushroomState.Idle;
                 }
@@ -119,7 +116,7 @@ public class Mushroom : MonoBehaviour
                 }
                 break;
             case MushroomState.Attack:
-                if (!chase)
+                if (transform.position.x == startingPoint.position.x)
                 {
                     mushroom = MushroomState.Idle;
                 }
@@ -141,21 +138,24 @@ public class Mushroom : MonoBehaviour
                 {
                     mushroom = MushroomState.Die;
                 }
-                else if (distance < 1.5f)
+                else if (distance < .5f)
                 {
                     mushroom = MushroomState.Attack;
                 }
-                else if (!chase && !enemy.isHit)
+                else if (transform.position.x == startingPoint.position.x && !enemy.isHit)
                 {
                     mushroom = MushroomState.Idle;
                 }
-                else if (chase && !enemy.isHit)
+                else if (chase)
                 {
                     mushroom = MushroomState.Chase;
                 }
                 break;
             case MushroomState.Die:
-                boxCollider.enabled = true;
+                if (boxCollider != null)
+                {
+                    boxCollider.enabled = true;
+                }
                 m_rigidbody.bodyType = RigidbodyType2D.Dynamic;
                 break;
         }
@@ -165,19 +165,24 @@ public class Mushroom : MonoBehaviour
         switch (mushroom)
         {
             case MushroomState.Idle:
-                m_animator.SetBool("attack", false);
                 m_animator.SetBool("idle", true);
+                m_animator.SetBool("chase", false);
+                m_animator.SetBool("attack", false);
                 break;
             case MushroomState.Chase:
+                m_animator.SetBool("idle", false);
+                m_animator.SetBool("chase", true);
                 m_animator.SetBool("attack", false);
+                m_animator.SetBool("isHit", false);
                 break;
             case MushroomState.Attack:
                 m_animator.SetBool("attack", true);
+                m_animator.SetBool("chase", false);
                 m_animator.SetBool("idle", false);
+                m_animator.SetBool("isHit", false);
                 break;
             case MushroomState.Hurt:
-                m_animator.SetTrigger("isHit");
-                m_animator.SetBool("idle", false);
+                m_animator.SetBool("isHit", true);
                 break;
             case MushroomState.Die:
                 m_animator.SetTrigger("isDead");

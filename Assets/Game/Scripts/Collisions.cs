@@ -9,27 +9,29 @@ public class Collisions : MonoBehaviour
     public PrototypeHero player;
     public SpriteRenderer keySprite;
     private Rigidbody2D rb;
-    public int knockbackForce =50;
+    private int knockbackForce =50;
 
     public List<GameObject> collectedGems;
     public int scoreAmount = 0;
     public float damageAmount;
-    public bool opened = false;
+    private bool opened = false;
     private bool chestInRange;
     private Enemy currentEnemy;
     private CircleCollider2D enemyCollider;
 
 
-
-    IEnumerator Invincible(float waitTime, GameObject enemy)
+    IEnumerator TakeDamage(float waitTime)
+    {
+        Debug.Log("playerHit");
+        player.TakeDamage(damageAmount);
+        enemyCollider.enabled = false;
+        yield return new WaitForSeconds(waitTime);
+        enemyCollider.enabled = true;
+    }
+    IEnumerator Invincible(float waitTime)
     {
         enemyCollider.enabled = false;
         yield return new WaitForSeconds(waitTime);
-    }
-    IEnumerator TurnOn()
-    {
-        yield return new WaitForSeconds(1);
-        enemyCollider.enabled = true;
     }
     private void Start()
     {
@@ -78,6 +80,10 @@ public class Collisions : MonoBehaviour
             audioManager.PlaySound("coinPickup");
             Destroy(gameObject);
         }
+        if (collision.tag == "Player" && this.tag == "nextLevel")
+        {
+            Debug.Log("Log");
+        }
         if (collectedGems != null)
         {
 
@@ -107,10 +113,7 @@ public class Collisions : MonoBehaviour
         // Player x Enemy Collisions
         if (collision.gameObject.CompareTag("Player") && this.tag == "enemy")
         {
-            player.TakeDamage(damageAmount);
-            Debug.Log("playerHit");
-            // Makes player invunerable for a certain amount of time
-            StartCoroutine(Invincible(5f, this.gameObject));
+            StartCoroutine(TakeDamage(1f));
         }
         if (collision.tag == "Ground" && this.tag == "enemy")
         {
@@ -159,7 +162,7 @@ public class Collisions : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && this.tag == "enemy")
         {
             // Makes player invunerable for a certain amount of time
-            StartCoroutine(Invincible(1f, this.gameObject));
+            StartCoroutine(Invincible(.5f));
         }
     }
 }

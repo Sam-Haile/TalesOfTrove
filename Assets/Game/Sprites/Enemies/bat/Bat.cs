@@ -166,9 +166,10 @@ public class Bat : MonoBehaviour
             case BatState.Attack:
                 b_animator.SetBool("attack", true);
                 b_animator.SetBool("idle", false);
+                b_animator.SetBool("isHit", false);
                 break;
             case BatState.Hurt:
-                b_animator.SetTrigger("isHit");
+                b_animator.SetBool("isHit", true);
                 b_animator.SetBool("idle", false);
                 break;
             case BatState.Die:

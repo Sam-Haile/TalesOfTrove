@@ -82,6 +82,7 @@
     <Compile Include="Assets\Game\Sprites\Enemies\mushroom\EnemyManger.cs" />
     <Compile Include="Assets\Game\Scripts\Sign.cs" />
     <Compile Include="Assets\Prototype Hero - Pixel Art\Demo\AudioManager_PrototypeHero.cs" />
+    <Compile Include="Assets\Game\Sprites\Enemies\mushroom\mushroomChaseController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -18,6 +18,7 @@ TagManager:
   - Wall
   - leftHitBox
   - rightHitBox
+  - nextLevel
   layers:
   - Default
   - TransparentFX
