@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class HealthHeartBar : MonoBehaviour
 {
-    public static event Action OnPlayerDamaged;
-    public static event Action OnPlayerDeath;
 
     public GameObject heartPrefab;
     public PrototypeHero playerHealth;
@@ -67,8 +65,4 @@ public class HealthHeartBar : MonoBehaviour
         hearts = new List<HealthHearts>();
     }
 
-    public void TakeDamage(float amount)
-    {
-        OnPlayerDamaged?.Invoke();
-    }
 }

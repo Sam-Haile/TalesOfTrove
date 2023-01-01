@@ -11,9 +11,7 @@ public class LevelLoader : MonoBehaviour
     [HideInInspector]
     public float alpha = 0;
 
-    public Animator transition;
     public Image image;
-    public float transitionTime = 1;
     private bool loadLevel;
     private void Start()
     {
@@ -52,7 +50,7 @@ public class LevelLoader : MonoBehaviour
         else if (alpha >= 1)
         {
             yield return new WaitForSeconds(.75f);
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex) + 1 );
 
         }
     }
@@ -65,6 +63,14 @@ public class LevelLoader : MonoBehaviour
             alpha -= .04f;
             yield return new WaitForSeconds(.75f);
             image.canvasRenderer.SetAlpha(alpha);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            StartCoroutine(FadeToBlack());
         }
     }
 }
