@@ -10,21 +10,15 @@ public class pauseScript : MonoBehaviour
 {
 
     public PrototypeHero pauseState;
-    public GameObject pauseBackgroundImage;
-    public GameObject pauseBackgroundImage2;
-    public Button pauseButton;
-    public Button quitButton;
-    public Button respawn;
+    public GameObject pauseMenu;
+    public GameObject controlMenu;
+    private bool controls = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        pauseBackgroundImage.SetActive(false);
-        pauseBackgroundImage2.SetActive(false);
-        pauseButton.gameObject.SetActive(false);
-        quitButton.gameObject.SetActive(false);
-        respawn.gameObject.SetActive(false);
-
+        controlMenu.SetActive(false);
+        TurnOff();
     }
 
 
@@ -34,55 +28,76 @@ public class pauseScript : MonoBehaviour
         PauseGame();
     }
 
+    // If ESC is pressed again when the game is paused
     public void Unpause()
     {
         pauseState.paused = false;
     }
 
+    // Kill player and return to spawn
     public void Respawn()
     {
+        pauseState.health = 0;
+        pauseState.paused = false;
+
         Debug.Log("Respawn");
     }
 
+    // Return to title screen
     public void Quit()
     {
         SceneManager.LoadScene(0);
     }
 
+    // Handle pausing and control menu
     void PauseGame()
     {
         if (pauseState.paused)
         {
-            pauseBackgroundImage.SetActive(true);
-            pauseBackgroundImage2.SetActive(true);
-            pauseButton.gameObject.SetActive(true);
-            quitButton.gameObject.SetActive(true);
-            respawn.gameObject.SetActive(true);
+            TurnOn();
+            if (controls)
+            {
+                controlMenu.SetActive(true);
+            }
+            else if (!controls)
+            {
+                controlMenu.SetActive(false);
+                TurnOn();
+            }
             Time.timeScale = 0;
+            //if controls button is pressed
         }
         else if (!pauseState.paused)
         {
-            pauseBackgroundImage.SetActive(false);
-            pauseBackgroundImage2.SetActive(false);
-            pauseButton.gameObject.SetActive(false);
-            quitButton.gameObject.SetActive(false);
-            respawn.gameObject.SetActive(false);
+            TurnOff();
+
             Time.timeScale = 1;
         }
     }
 
-    private void moveUI(float distance)
+
+    // Turn screen elements on
+    private void TurnOn()
     {
-        if (pauseBackgroundImage2.activeSelf)
-        {
-            iTween.MoveTo(pauseBackgroundImage2,
-            iTween.Hash(
-            "x", distance,
-            "easeType", "easeInQuad",
-            "loopType", "none",
-            "delay", 0,
-            "time", .5f,
-            "ignoretimescale", true));
-        }
+        pauseMenu.SetActive(true);
+    }
+
+    // Turn screen elements off
+    private void TurnOff()
+    {
+        pauseMenu.SetActive(false);
+    }
+
+    // turn controls screen on
+    public void Controls()
+    {
+        Debug.Log("sc");
+        controls = true;
+    }
+
+    // return to pause screen
+    public void Back()
+    {
+        controls = false;
     }
 }
