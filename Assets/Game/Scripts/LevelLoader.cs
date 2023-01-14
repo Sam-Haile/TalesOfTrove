@@ -39,6 +39,11 @@ public class LevelLoader : MonoBehaviour
         loadLevel = true;
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     public IEnumerator FadeToBlack() //Alpha gradually goes to 0
     {
         if (alpha < 1)

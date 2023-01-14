@@ -39,8 +39,6 @@ public class pauseScript : MonoBehaviour
     {
         pauseState.health = 0;
         pauseState.paused = false;
-
-        Debug.Log("Respawn");
     }
 
     // Return to title screen
@@ -58,6 +56,12 @@ public class pauseScript : MonoBehaviour
             if (controls)
             {
                 controlMenu.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    controlMenu.SetActive(false);
+                }
+
+
             }
             else if (!controls)
             {
@@ -91,7 +95,6 @@ public class pauseScript : MonoBehaviour
     // turn controls screen on
     public void Controls()
     {
-        Debug.Log("sc");
         controls = true;
     }
 

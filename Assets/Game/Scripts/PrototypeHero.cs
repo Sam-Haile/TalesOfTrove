@@ -2,9 +2,12 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using System.Net;
+
 public class PrototypeHero : MonoBehaviour
 {
 
+    public GameObject respawnPos;
     public static event Action OnPlayerDamaged;
     public static event Action OnPlayerDeath;
     public GameObject gameOverBlackScreen;
@@ -250,7 +253,7 @@ public class PrototypeHero : MonoBehaviour
 
             // -- Handle Animations --
             //Death
-            if (Input.GetKeyDown("e") && !m_dodging || health == 0)
+            if (/*Input.GetKeyDown("e") && !m_dodging || */ health == 0)
             {
                 m_animator.SetBool("noBlood", m_noBlood);
                 m_animator.SetTrigger("Death");
@@ -270,13 +273,16 @@ public class PrototypeHero : MonoBehaviour
             }
 
             //Hurt
+            /*
             else if (Input.GetKeyDown("q") && !m_dodging)
             {
                 m_animator.SetTrigger("Hurt");
+                TakeDamage(1);
                 // Disable movement 
                 m_disableMovementTimer = 0.1f;
                 DisableWallSensors();
             }
+            */
 
             // Parry & parry stance
             else if (Input.GetMouseButtonDown(1) && !m_dodging && !m_ledgeGrab && !m_ledgeClimb && !m_crouching && m_grounded)
@@ -532,7 +538,6 @@ public class PrototypeHero : MonoBehaviour
         m_disableMovementTimer = 0.1f;
         DisableWallSensors();
 
-
         if (health <= 0)
         {
             audioManager.Pause();
@@ -586,7 +591,7 @@ public class PrototypeHero : MonoBehaviour
 
     void RespawnHero()
     {
-        transform.position = Vector3.zero;
+        transform.position = respawnPos.transform.position;
         m_dead = false;
         health = maxHealth;
         gameOverBlackScreen.SetActive(false);

@@ -9,8 +9,6 @@ public class Collisions : MonoBehaviour
     public PrototypeHero player;
     public SpriteRenderer keySprite;
     private Rigidbody2D rb;
-    private int knockbackForce =50;
-
     public List<GameObject> collectedGems;
     public int scoreAmount = 0;
     public float damageAmount;
@@ -22,7 +20,6 @@ public class Collisions : MonoBehaviour
 
     IEnumerator TakeDamage(float waitTime)
     {
-        Debug.Log("playerHit");
         player.TakeDamage(damageAmount);
         enemyCollider.enabled = false;
         yield return new WaitForSeconds(waitTime);
@@ -53,6 +50,7 @@ public class Collisions : MonoBehaviour
             animator.SetTrigger("Open");
             if (opened)
             {
+                audioManager.PlaySound("chestOpen");
                 Score.Instance.AddPoints(scoreAmount);
             }
         }
@@ -82,7 +80,6 @@ public class Collisions : MonoBehaviour
         }
         if (collision.tag == "Player" && this.tag == "nextLevel")
         {
-            Debug.Log("Log");
         }
         if (collectedGems != null)
         {
@@ -90,21 +87,28 @@ public class Collisions : MonoBehaviour
             if (collision.tag == "Player" && this.tag == "blueGem")
             {
                 audioManager.PlaySound("gemPickup");
+                Score.Instance.AddPoints(scoreAmount);
                 this.gameObject.SetActive(false);
                 collectedGems[0].SetActive(true);
             }
             else if (collision.tag == "Player" && this.tag == "greenGem")
             {
+                audioManager.PlaySound("gemPickup");
+                Score.Instance.AddPoints(scoreAmount);
                 this.gameObject.SetActive(false);
                 collectedGems[1].SetActive(true);
             }
             else if (collision.tag == "Player" && this.tag == "redGem")
             {
+                audioManager.PlaySound("gemPickup");
+                Score.Instance.AddPoints(scoreAmount);
                 this.gameObject.SetActive(false);
                 collectedGems[2].SetActive(true);
             }
             else if (collision.tag == "Player" && this.tag == "whiteGem")
             {
+                audioManager.PlaySound("gemPickup");
+                Score.Instance.AddPoints(scoreAmount);
                 this.gameObject.SetActive(false);
                 collectedGems[3].SetActive(true);
             }
@@ -129,7 +133,6 @@ public class Collisions : MonoBehaviour
             currentEnemy = this.gameObject.GetComponent<Enemy>();
             audioManager.PlaySound("Dodge");
             // collision object here is the colliders
-            Debug.Log("Hit");
             currentEnemy.TakeDamage(10);
         }
         /*

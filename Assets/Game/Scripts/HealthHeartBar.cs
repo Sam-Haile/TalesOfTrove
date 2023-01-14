@@ -14,6 +14,7 @@ public class HealthHeartBar : MonoBehaviour
     private void OnEnable()
     {
         PrototypeHero.OnPlayerDamaged += DrawHearts;
+        PrototypeHero.OnPlayerDeath += DrawHearts;  
     }
 
     private void OnDisable()
@@ -21,7 +22,7 @@ public class HealthHeartBar : MonoBehaviour
         PrototypeHero.OnPlayerDamaged -= DrawHearts;
     }
 
-    private void Start()
+    private void Update()
     {
         DrawHearts();
     }

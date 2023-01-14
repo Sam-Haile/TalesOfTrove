@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1062811370
 Transform:
   m_ObjectHideFlags: 0
@@ -69,7 +69,6 @@ GameObject:
   - component: {fileID: 3820302844076642554}
   - component: {fileID: 3820302844076642549}
   - component: {fileID: 3820302844076642555}
-  - component: {fileID: 5786697592414452945}
   - component: {fileID: 1170999509}
   - component: {fileID: 1170999510}
   m_Layer: 0
@@ -138,7 +137,7 @@ SpriteRenderer:
   m_SortingOrder: -2
   m_Sprite: {fileID: -428940455, guid: 3636061e26734be498efef7fab256edb, type: 3}
   m_Color: {r: 0.7242346, g: 0.80830884, b: 0.990566, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.32, y: 0.32}
@@ -160,7 +159,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08406341, y: -0.7881336}
+  m_Offset: {x: 0.08406341, y: -0.77204406}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -171,23 +170,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9117253, y: 0.5228057}
+  m_Size: {x: 1.9117253, y: 0.5549848}
   m_EdgeRadius: 0
---- !u!114 &5786697592414452945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3820302844076642548}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3695cd86a37246347bfa4e9680990a72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chestInRange: 0
-  key: {fileID: 0}
-  animator: {fileID: 0}
 --- !u!95 &1170999509
 Animator:
   serializedVersion: 4
@@ -220,10 +204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998e6b56c2b7abe468d2f5ff3bfbefb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 1170999509}
   player: {fileID: 0}
   keySprite: {fileID: 0}
-  enemy: {fileID: 0}
+  collectedGems: []
   scoreAmount: 75
   damageAmount: 0
-  opened: 0
